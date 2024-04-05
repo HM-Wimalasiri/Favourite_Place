@@ -24,11 +24,15 @@ class _AddPlaceState extends ConsumerState<AddPlace> {
   void _savePlace() {
     final enteredText = _titleController.text;
 
-    if (enteredText == '' || _selectedImage == null || _selectedLocation==null) {
+    if (enteredText == '' ||
+        _selectedImage == null ||
+        _selectedLocation == null) {
       return;
     }
 
-    ref.read(userPlaceProvider.notifier).addPlace(enteredText, _selectedImage!, _selectedLocation!);
+    ref
+        .read(userPlaceProvider.notifier)
+        .addPlace(enteredText, _selectedImage!, _selectedLocation!);
 
     Navigator.of(context).pop();
   }
@@ -46,11 +50,11 @@ class _AddPlaceState extends ConsumerState<AddPlace> {
         title: const Text('Add new Place'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: Column(
           children: [
             TextField(
-              decoration: InputDecoration(labelText: 'Title'),
+              decoration: const InputDecoration(labelText: 'Title'),
               controller: _titleController,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onBackground,
@@ -67,7 +71,11 @@ class _AddPlaceState extends ConsumerState<AddPlace> {
             const SizedBox(
               height: 10,
             ),
-            LocationInput(),
+            LocationInput(
+              onSelectLocation: (location) {
+                _selectedLocation = location;
+              },
+            ),
             const SizedBox(
               height: 16,
             ),
